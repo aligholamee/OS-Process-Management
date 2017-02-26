@@ -14,6 +14,13 @@ wait(): Blocks calling process until the child process terminates. If child proc
 
 waitpid(): Options available to block calling process for a particular child process not the first one.
 
+# System Call: exec
+The exec() call replaces the entire current contents of the process with a new program. It loads the program into the current process space and runs it from the entry point.
+
+So, fork() and exec() are often used in sequence to get a new program running as a child of a current process. Shells typically do this whenever you try to run a program like find - the shell forks, then the child loads the find program into memory, setting up all command line arguments, standard I/O and so forth.
+
+But they're not required to be used together. It's perfectly acceptable for a program to call fork() without a following exec() if, for example, the program contains both parent and child code (you need to be careful what you do, each implementation may have restrictions).
+
 # Using fork, exec, wait, pipe
 The purpose of this section is to work with fork , exec , and wait to create new processes and use pipe to communicate between parent/child processes. I'll implement a code to illustrate the following command: "ls / | wc -l". This command prints out the number of files in the root path: ls / shows the files/directories in the root path, and its output will be piped through | to wc -l , which counts the number of lines.
 
