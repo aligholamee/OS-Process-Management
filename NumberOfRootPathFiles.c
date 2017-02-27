@@ -10,8 +10,12 @@ int main()
 	const char *childCommand = (char *)"ls |"; 					 /* Command to be executed by the child process */
 	const char *parentCommand = (char *)"wc -l"					 /* Command to be executed by the parent process */
 
+	int i = 0;													 /* A simple loop counter :) */
+	int counter = 0;											 /* Counts the number of lines in the string provided in the child process */
+	int dirFileNum;												 /* Keeps the list of files in the directory */
 	int tunnel[2];												 /* Defining an array of integer to let the child process store a number and parent process to pick that number */
 	pid_t pID = fork();											 /* Fork from the main process */
+
 
 	if (pipe(tunnel) == -1)										 /* Pipe from the parent to the child */
 		die("pipe died.");
@@ -31,8 +35,12 @@ int main()
 	else														 /* When we are still in the main process */
 	{
 		close(tunnel[1]);
-		int dirFileNum = read(tunnel[0]);
-		printf("The number of ");
+		char dirFileList[] = read(tunnel[0]);					 /* Read the list of directories provided by the child process */
+		for(i;i<strlen(dirFileList);i++)						 /* Find the number of lines in the list provided by the child process */
+			if(dirFileList[i] == '\n')
+				counter++;
+
+		printf("Root contains %d files.", counter);				 /* Print the result */
 		wait(NULL);												 /* Wait until the job is done by the child process */
 		
 	} 		
