@@ -21,6 +21,22 @@ So, fork() and exec() are often used in sequence to get a new program running as
 
 But they're not required to be used together. It's perfectly acceptable for a program to call fork() without a following exec() if, for example, the program contains both parent and child code (you need to be careful what you do, each implementation may have restrictions).
 
+Functions in the exec() family have different behaviours:
+
+    l : arguments are passed as a list of strings to the main()
+    v : arguments are passed as an array of strings to the main()
+    p : path/s to search for the new running program
+    e : the environment can be specified by the caller
+
+You can mix them, therefore you have:
+
+    int execl(const char *path, const char *arg, ...);
+    int execlp(const char *file, const char *arg, ...);
+    int execle(const char *path, const char *arg, ..., char * const envp[]);
+    int execv(const char *path, char *const argv[]);
+    int execvp(const char *file, char *const argv[]);
+    int execvpe(const char *file, char *const argv[], char *const envp[]);
+
 # Using fork, exec, wait, pipe
 The purpose of this section is to work with fork , exec , and wait to create new processes and use pipe to communicate between parent/child processes. I'll implement a code to illustrate the following command: "ls / | wc -l". This command prints out the number of files in the root path: ls / shows the files/directories in the root path, and its output will be piped through | to wc -l , which counts the number of lines.
 
