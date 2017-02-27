@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <cstring>
+#include <sys/wait.h>
 
 #define die(e) do { fprintf(stderr, "%s\n", e); exit(EXIT_FAILURE); } while (0);
 
@@ -8,7 +11,7 @@ int main()
 {
 	const char *path = (char *)"/"; 							 /* Root path */
 	const char *childCommand = (char *)"ls |"; 					 /* Command to be executed by the child process */
-	const char *parentCommand = (char *)"wc -l"					 /* Command to be executed by the parent process */
+	const char *parentCommand = (char *)"wc -l";				 /* Command to be executed by the parent process */
 
 	int i = 0;													 /* A simple loop counter :) */
 	int counter = 0;											 /* Counts the number of lines in the string provided in the child process */
