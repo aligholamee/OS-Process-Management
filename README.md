@@ -45,10 +45,13 @@ The purpose of this section is to work with fork , exec , and wait to create new
 IPC messaging lets processes send and receive messages, and queue messages for processing in an arbitrary order. Unlike the file byte-stream data flow of pipes, each IPC message has an explicit length. Messages can be assigned a specific type. Because of this, a server process can direct message traffic between clients on its queue by using the client process PID as the message type.
 Before a process can send or receive a message, the queue must be initialized through the msgget function.
 Operations to send and receive messages are performed by the msgsnd() and msgrcv() functions, respectively. 
- When a message is sent, its text is copied to the message queue. The msgsnd() and msgrcv() functions can be performed as either blocking or non-blocking operations. Non-blocking operations allow for asynchronous message transfer -- the process is not suspended as a result of sending or receiving a message. In blocking or synchronous message passing the sending process cannot continue until the message has been transferred or has even been acknowledged by a receiver. IPC signal and other mechanisms can be employed to implement such transfer. A blocked message operation remains suspended until one of the following three conditions occurs:
+When a message is sent, its text is copied to the message queue. The msgsnd() and msgrcv() functions can be performed as either blocking or non-blocking operations. Non-blocking operations allow for asynchronous message transfer -- the process is not suspended as a result of sending or receiving a message. In blocking or synchronous message passing the sending process cannot continue until the message has been transferred or has even been acknowledged by a receiver. IPC signal and other mechanisms can be employed to implement such transfer. A blocked message operation remains suspended until one of the following three conditions occurs:
 
     The call succeeds.
     The process receives a signal.
     The queue is removed. 
+
+# IPC: Passing Data Through Message Queues Using PIPE
+I will implement two processes, such that the first process reads the content of a file, e.g., file.txt , and passes it to the second process through a message queue. Upon receipt of the file content, the second process will count and print out the number of words in the file.
 
 
