@@ -30,7 +30,11 @@ int main()
 	}	
 	else														 /* When we are still in the main process */
 	{
-		//
+		close(tunnel[1]);
+		int dirFileNum = read(tunnel[0]);
+		printf("The number of ");
+		wait(NULL);												 /* Wait until the job is done by the child process */
+		
 	} 		
 
 	return 0;		
