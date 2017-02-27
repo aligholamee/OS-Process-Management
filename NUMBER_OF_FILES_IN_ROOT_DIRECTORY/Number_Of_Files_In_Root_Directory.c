@@ -6,6 +6,7 @@
 #include <sys/wait.h>
 
 #define die(e) do { fprintf(stderr, "%s\n", e); exit(EXIT_FAILURE); } while (0);
+#define MAX_BUF 2024
 
 int main()
 {
@@ -17,7 +18,8 @@ int main()
 	int counter = 0;											 /* Counts the number of lines in the string provided in the child process */
 	int dirFileNum;												 /* Keeps the list of files in the directory */
 	int tunnel[2];												 /* Defining an array of integer to let the child process store a number and parent process to pick that number */
-	pid_t pID = fork();											 /* Fork from the main process */
+	pid_t pID = fork();	
+	char buf[MAX_BUF];										     /* Fork from the main process */
 
 
 	if (pipe(tunnel) == -1)										 /* Pipe from the parent to the child */
@@ -38,7 +40,7 @@ int main()
 	else														 /* When we are still in the main process */
 	{
 		close(tunnel[1]);
-		char dirFileList[] = read(tunnel[0]);					 /* Read the list of directories provided by the child process */
+		char dirFileList[] = read(tunnel[0],buf,MAX_BUF);					 /* Read the list of directories provided by the child process */
 		for(i;i<strlen(dirFileList);i++)						 /* Find the number of lines in the list provided by the child process */
 			if(dirFileList[i] == '\n')
 				counter++;
