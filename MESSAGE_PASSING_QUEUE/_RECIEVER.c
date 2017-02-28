@@ -3,8 +3,11 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <unistd.h>						/* Needed for read, write */
+#include <stdlib.h>						/* Needed for exit */
 
 #define die(e) do { fprintf(stderr, "%s\n", e); exit(EXIT_FAILURE); } while (0);
+using namespace std;
 
 int main()
 {

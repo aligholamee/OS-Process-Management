@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <unistd.h>						/* Needed for read, write */
+#include <stdlib.h>						/* Needed for exit */
 
 #define die(e) do { fprintf(stderr, "%s\n", e); exit(EXIT_FAILURE); } while (0);
+
+using namespace std;
 
 int main()
 {
@@ -12,7 +16,7 @@ int main()
 	int BYTE_LENGTH;									    /* Grabbed data byte count which is provided by read function */
 	int STRING_CNT;											/* Counts the number of strings in the input file */
 
-	F_D = open("tunnel",O_WRDONLY);							/* Open the tunnel pipe for write purpose only */
+	F_D = open("tunnel",O_WRONLY);							/* Open the tunnel pipe for write purpose only */
 
 	if(F_D == -1)
 	{
@@ -31,7 +35,7 @@ int main()
 		if(BYTE_LENGTH < 0)								   /* When we reach EOF */
 			break;		
 
-		write(F_D,DATA_BUF,BY);		  
+		write(F_D,DATA_BUF,BYTE_LENGTH);		  
 	}
 
 	close(F_D);
