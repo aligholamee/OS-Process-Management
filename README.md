@@ -55,6 +55,5 @@ I will implement two processes, such that the first process reads the content of
 
 # Using the program to pass the message through the queue
 Simply compile the Reciever.c first and Sender.c next. then you'll get a notification which show the connection through the tunnel is established successfully. Then write the message you want to pass in the sender's terminal. Please remember that the input source descriptor is set to terminal by default, so the data will be grabbed from terminal currently.
-to compile the code just follow the instructions below in the image:
 ![alt tag](https://raw.githubusercontent.com/aligholamee/OS-Process-Management/master/MESSAGE_PASSING_QUEUE/MESSAGE_PASSING_SCREENSHOT.png)
 
