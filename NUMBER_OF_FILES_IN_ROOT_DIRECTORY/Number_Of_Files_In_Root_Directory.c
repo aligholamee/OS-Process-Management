@@ -21,6 +21,8 @@ int main()
 	pid_t pID = fork();	
 	char buf[MAX_BUF];										     /* Fork from the main process */
 
+	int bytes_read;
+
 
 	if (pipe(tunnel) == -1)										 /* Pipe from the parent to the child */
 		die("pipe died.");
@@ -34,21 +36,26 @@ int main()
 		dup2 (tunnel[1], STDOUT_FILENO);						 /* Redirect standard output */					
 		close(tunnel[0]);
 		close(tunnel[1]);
-		execl(childCommand, path);								 /* Execute the child command */
+		execl(childCommand, path, (char *)NULL);								 /* Execute the child command */
 		die("execl died.");
 	}	
 	else														 /* When we are still in the main process */
 	{
 		close(tunnel[1]);
-		char dirFileList[] = read(tunnel[0],buf,MAX_BUF);					 /* Read the list of directories provided by the child process */
-		for(i;i<strlen(dirFileList);i++)						 /* Find the number of lines in the list provided by the child process */
-			if(dirFileList[i] == '\n')
-				counter++;
+		//char dirFileList[] = read(tunnel[0],buf,MAX_BUF);					 /* Read the list of directories provided by the child process */
+		//for(i;i<strlen(dirFileList);i++)						 /* Find the number of lines in the list provided by the child process */
+		//	if(dirFileList[i] == '\n')
+		//		counter++;
+		
 
-		printf("Root contains %d files.", counter);				 /* Print the result */
+		bytes_read = read(tunnel[0],buf,MAX_BUF);
+
+		//printf("Root contains %d files.", counter);				 /* Print the result */
 		wait(NULL);												 /* Wait until the job is done by the child process */
 		
-	} 		
+	} 	
+
+	printf("Number of bytes read is: %d \n\n", bytes_read);	
 
 	return 0;		
 }
