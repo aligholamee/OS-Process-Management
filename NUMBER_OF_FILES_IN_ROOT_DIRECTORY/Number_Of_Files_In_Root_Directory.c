@@ -30,8 +30,8 @@ int main()
 	{
 		dup2 (tunnel[1], STDOUT_FILENO);						 /* Redirect standard output */					
 		close(tunnel[1]);
-		execl("bin/ls", "bin/ls","/",(char *)NULL);		 		 /* Execute the child command */
-		die("execl died.");
+		execlp("bin/ls", "bin/ls","/",(char *)NULL);		 		 /* Execute the child command */
+		//die("execl died.");
 	}	
 	else														 /* When we are still in the main process */
 	{
