@@ -1,7 +1,7 @@
-#include <stdio.h>
+#include <stdio.h>												/* Working with I/O */
 #include <sys/types.h>
 #include <unistd.h>
-#include <stdlib.h>
+#include <stdlib.h>												/* System call */
 #include <cstring>
 #include <sys/wait.h>
 
@@ -11,7 +11,7 @@
 int main()
 {
 	const char *path = (char *)"/"; 							 /* Root path */
-	const char *childCommand = (char *)"ls |"; 					 /* Command to be executed by the child process */
+	const char *childCommand = (char *)"bin/ls"; 					 /* Command to be executed by the child process */
 	const char *parentCommand = (char *)"wc -l";				 /* Command to be executed by the parent process */
 
 	int i = 0;													 /* A simple loop counter :) */
