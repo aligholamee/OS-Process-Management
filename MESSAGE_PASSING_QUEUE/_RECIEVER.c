@@ -40,12 +40,16 @@ int main()
 
 	while(1)
 	{
+		int numberOfChars = 0;								/* Variable to count the number of the characters */
 		BYTE_LENGTH = 	read(F_D,DATA_BUF,100);			    /* Read data from the tunnel */
 
 		if(BYTE_LENGTH < 0)									/* When we reach EOF */
 			break;					
-		DATA_BUF[BYTE_LENGTH] = '\0';						/* Append EOF at the end of recieved string */			
+		DATA_BUF[BYTE_LENGTH] = '\0';						/* Append EOF at the end of recieved string */	
+		for(numberOfChars = 0;numberOfChars < sizeof(DATA_BUF) && DATA_BUF[numberOfChars]!='\0';)
+			numberOfChars++;		
 		printf("String #%d : %s", STRING_CNT, DATA_BUF);
+		printf("\nNumber of characters: ",numberOfChars);
 		STRING_CNT++;
 	}
 
