@@ -7,7 +7,7 @@
 #define READ_END 0
 #define WRITE_END 1
 
-int main(int argc, char* argv[]) 
+int main()
 {
     printf("There are ");
     pid_t pid;
